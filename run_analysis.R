@@ -7,16 +7,16 @@ unzip(temp, list=T)
 
 #Load activity labels + features
 
-features<-read.table(unz(temp, "UCI HAR Dataset/features.txt"), header=F)
+features<-read.table(unz(temp, "UCI HAR Dataset/features.txt"), header=FALSE)
 features<-as.character(features[,2])
-activityLabels<-read.table(unz(temp, "UCI HAR Dataset/activity_labels.txt"), header=F)
+activityLabels<-read.table(unz(temp, "UCI HAR Dataset/activity_labels.txt"), header=FALSE)
 activityLabels<-as.character(activityLabels[,2])
-dataTrainX<-read.table(unz(temp, "UCI HAR Dataset/train/X_train.txt"), header=F)
-dataTrainY<-read.table(unz(temp, "UCI HAR Dataset/train/y_train.txt"), header=F)
-dataTrainSubject<-read.table(unz(temp, "UCI HAR Dataset/train/subject_train.txt"), header=F)
-dataTestX<-read.table(unz(temp, "UCI HAR Dataset/test/X_test.txt"), header=F)
-dataTestY<-read.table(unz(temp, "UCI HAR Dataset/test/y_test.txt"), header=F)
-dataTestSubject<-read.table(unz(temp, "UCI HAR Dataset/test/subject_test.txt"), header=F)
+dataTrainX<-read.table(unz(temp, "UCI HAR Dataset/train/X_train.txt"), header=FALSE)
+dataTrainY<-read.table(unz(temp, "UCI HAR Dataset/train/y_train.txt"), header=FALSE)
+dataTrainSubject<-read.table(unz(temp, "UCI HAR Dataset/train/subject_train.txt"), header=FALSE)
+dataTestX<-read.table(unz(temp, "UCI HAR Dataset/test/X_test.txt"), header=FALSE)
+dataTestY<-read.table(unz(temp, "UCI HAR Dataset/test/y_test.txt"), header=FALSE)
+dataTestSubject<-read.table(unz(temp, "UCI HAR Dataset/test/subject_test.txt"), header=FALSE)
 
 
 #Merge the data sets and call Combined
@@ -50,5 +50,7 @@ tidy<-aggregate(. ~ subject + activity, Combined, mean)
 tidy<-tidy[order(tidy$subject,tidy$activity),]
 
 write.csv(tidy, file = "tidy.csv")
+
+write.table(tidy, file = "tidy.txt", row.names = FALSE)
 
 
